@@ -1,0 +1,22 @@
+services:
+  fe-stamping-new:
+    image: node:20
+    container_name: fe-stamping-new
+    restart: always
+    working_dir: /app
+    ports:
+      - 5173:5173
+    volumes:
+      - .:/app
+      - /app/node_modules
+    env_file:
+      - .env
+    environment:
+      - TZ=Asia/Jakarta
+    command: sh -c "npm install && npm run dev -- --host"
+    networks:
+      - iot-stamping-network
+
+networks:
+  iot-stamping-network:
+    external: true

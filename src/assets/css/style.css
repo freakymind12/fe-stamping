@@ -1,0 +1,81 @@
+@import 'qalendar/dist/style.css';
+
+.ant-row {
+  margin-bottom: 16px;
+}
+
+.ant-tag:hover {
+  transform: scale(1.05); /* sedikit membesar */
+  transition: transform 0.2s ease; /* durasi dan animasi smooth */
+  cursor: pointer;
+}
+
+.header-big-font {
+  font-size: large;
+  color: #8c8c8c;
+  font-weight: bold;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.slide-fade-enter-active {
+  transition: all 0.3s ease-out;
+}
+
+.slide-fade-leave-active {
+  transition: all 0.4s cubic-bezier(1, 0.5, 0.8, 1);
+}
+
+.slide-fade-enter-from,
+.slide-fade-leave-to {
+  transform: translateX(20px);
+  opacity: 0;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.run {
+  background-color: #2eb85c;
+}
+
+.stop {
+  background-color: #f56c6c;
+}
+
+.setting {
+  background-color: #ffb200;
+}
+
+.off {
+  background-color: #5a5c69;
+}
+
+.large {
+  font-size: large;
+}
+
+.medium {
+  font-size: medium;
+}
+
+.small {
+  font-size: small;
+}
+
+.blue {
+  background-color: #789dbc;
+}
+
+.x-large {
+  font-size: x-large;
+}
