@@ -213,10 +213,10 @@ const info = () => {
   text-decoration: underline; /* Underline on hover */
 }
 
+
 .logo-name {
   margin-bottom: 0px;
-  font-family: monospace;
-  font-weight: 600;
+  font-weight: 800;
   opacity: 0; /* Start with hidden */
   transform: scale(0.8); /* Mulai dengan ukuran lebih kecil */
   transition:
