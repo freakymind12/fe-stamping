@@ -22,25 +22,26 @@
                       " />
                   </a-tooltip>
                 </a-flex>
-                <a-flex justify="center" style="padding-right: 1rem;">
-                  <a-progress stroke-color="black" trailColor="grey" :percent="dataShot[4]" />
-                </a-flex>
 
                 <a-flex justify="space-between" wrap="wrap" align="center">
+                  <a-flex justify="flex-start" style="padding-right: 5px;">
+                    <a-progress style="width: 100px;" stroke-color="black" :stroke-width="12" trailColor="grey" :percent="Number(dataShot[4].toFixed(1))">
+                    </a-progress>
+                  </a-flex>
                   <a-space direction="vertical" :size="0">
-                    <span>Actual Shoot</span>
+                    <span>Actual</span>
                     <span class="bold">{{
                       dataShot[1].toLocaleString('id-ID')
                     }}</span>
                   </a-space>
                   <a-space direction="vertical" :size="0">
-                    <span>Target Shot 1</span>
+                    <span>Reminder</span>
                     <span class="bold">{{
                       dataShot[2].toLocaleString('id-ID')
                     }}</span>
                   </a-space>
                   <a-space direction="vertical" :size="0">
-                    <span>Target Shot 2</span>
+                    <span>Force Stop</span>
                     <span class="bold">{{
                       dataShot[3].toLocaleString('id-ID')
                     }}</span>
