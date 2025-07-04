@@ -2,185 +2,107 @@
   <a-form layout="vertical" :model="form" @finish="handleAction(props.mode)">
     <a-row :gutter="[16, 0]" :wrap="true">
       <a-col :span="24">
-        <a-form-item
-          label="PCA Data"
-          name="id_pca"
-          :rules="[
-            {
-              required: true,
-              message: 'Required',
-              trigger: 'change',
-            },
-          ]"
-        >
-          <a-select
-            show-search
-            :filterOption="filterOption"
-            v-model:value="form.id_pca"
-            :options="pcaStore.pcaOptions"
-            :disabled="mode !== 'add'"
-          />
+        <a-form-item label="PCA Data" name="id_pca" :rules="[
+          {
+            required: true,
+            message: 'Required',
+            trigger: 'change',
+          },
+        ]">
+          <a-select show-search :filterOption="filterOption" v-model:value="form.id_pca" :options="pcaStore.pcaOptions"
+            :disabled="mode !== 'add'" />
         </a-form-item>
       </a-col>
       <a-col :span="24">
-        <a-form-item
-          label="Plan Data"
-          name="id_plan"
-          :rules="[
-            {
-              required: true,
-              message: 'Required',
-              trigger: 'change',
-            },
-          ]"
-        >
-          <a-select
-            v-model:value="form.id_plan"
-            show-search
-            :filterOption="filterOption"
-            :disabled="mode !== 'add' || !form.id_pca"
-            :options="planStore.planOptions"
-          />
+        <a-form-item label="Plan Data" name="id_plan" :rules="[
+          {
+            required: props.mode === 'add' ? true : false,
+            message: 'Required',
+            trigger: 'change',
+          },
+        ]">
+          <a-select v-model:value="form.id_plan" show-search :filterOption="filterOption"
+            :disabled="mode !== 'add' || !form.id_pca" :options="planStore.planOptions" />
         </a-form-item>
       </a-col>
       <a-col :span="12">
-        <a-form-item
-          label="Good Product"
-          name="ok"
-          :rules="[
-            {
-              required: true,
-              message: 'Required',
-              trigger: 'change',
-            },
-            {
-              type: 'number',
-              message: 'Must be number',
-              trigger: 'change',
-            },
-          ]"
-        >
-          <a-input-number
-            :min="0"
-            v-model:value="form.ok"
-            style="width: 100%"
+        <a-form-item label="Good Product" name="ok" :rules="[
+          {
+            required: true,
+            message: 'Required',
+            trigger: 'change',
+          },
+          {
+            type: 'number',
+            message: 'Must be number',
+            trigger: 'change',
+          },
+        ]">
+          <a-input-number :min="0" v-model:value="form.ok" style="width: 100%"
             :formatter="value => formatThousandSeparator(value, '.')"
-            :parser="value => parseThousandSeparator(value, '.')"
-            :disabled="mode !== 'add'"
-          />
+            :parser="value => parseThousandSeparator(value, '.')" :disabled="mode !== 'add'" />
         </a-form-item>
       </a-col>
       <a-col :span="12">
-        <a-form-item
-          label="In Process Reject"
-          name="ng"
-          :rules="[{ required: true, message: 'Required', trigger: 'change' }]"
-        >
-          <a-input-number
-            v-model:value="form.ng"
-            style="width: 100%"
+        <a-form-item label="In Process Reject" name="ng"
+          :rules="[{ required: true, message: 'Required', trigger: 'change' }]">
+          <a-input-number v-model:value="form.ng" style="width: 100%"
             :formatter="value => formatThousandSeparator(value, '.')"
-            :parser="value => parseThousandSeparator(value, '.')"
-            :min="0"
-          />
+            :parser="value => parseThousandSeparator(value, '.')" :min="0" />
         </a-form-item>
       </a-col>
       <a-col :span="12">
-        <a-form-item
-          label="Reject Setting"
-          name="reject_setting"
-          :rules="[{ required: true, message: 'Required', trigger: 'change' }]"
-        >
-          <a-input-number
-            v-model:value="form.reject_setting"
-            style="width: 100%"
+        <a-form-item label="Reject Setting" name="reject_setting"
+          :rules="[{ required: true, message: 'Required', trigger: 'change' }]">
+          <a-input-number v-model:value="form.reject_setting" style="width: 100%"
             :formatter="value => formatThousandSeparator(value, '.')"
-            :parser="value => parseThousandSeparator(value, '.')"
-            :disabled="mode !== 'add'"
-            :min="0"
-          />
+            :parser="value => parseThousandSeparator(value, '.')" :disabled="mode !== 'add'" :min="0" />
         </a-form-item>
       </a-col>
       <a-col :span="12">
-        <a-form-item
-          label="Dummy"
-          name="dummy"
-          :rules="[{ required: true, message: 'Required', trigger: 'change' }]"
-        >
-          <a-input-number
-            v-model:value="form.dummy"
-            style="width: 100%"
+        <a-form-item label="Dummy" name="dummy" :rules="[{ required: true, message: 'Required', trigger: 'change' }]">
+          <a-input-number v-model:value="form.dummy" style="width: 100%"
             :formatter="value => formatThousandSeparator(value, '.')"
-            :parser="value => parseThousandSeparator(value, '.')"
-            :disabled="mode !== 'add'"
-            :min="0"
-          />
+            :parser="value => parseThousandSeparator(value, '.')" :disabled="mode !== 'add'" :min="0" />
         </a-form-item>
       </a-col>
       <a-col :span="8">
-        <a-form-item
-          label="Stop Time"
-          name="stop_time"
-          :rules="[
-            {
-              required: true,
-              message: 'Required',
-              trigger: 'change',
-            },
-          ]"
-        >
-          <a-input-number
-            :min="0"
-            v-model:value="form.stop_time"
-            style="width: 100%"
+        <a-form-item label="Stop Time" name="stop_time" :rules="[
+          {
+            required: true,
+            message: 'Required',
+            trigger: 'change',
+          },
+        ]">
+          <a-input-number :min="0" v-model:value="form.stop_time" style="width: 100%"
             :formatter="value => formatThousandSeparator(value, '.')"
-            :parser="value => parseThousandSeparator(value, '.')"
-            :disabled="true"
-          />
+            :parser="value => parseThousandSeparator(value, '.')" :disabled="true" />
         </a-form-item>
       </a-col>
       <a-col :span="8">
-        <a-form-item
-          label="Production Time"
-          name="production_time"
-          :rules="[
-            {
-              required: true,
-              message: 'Required',
-              trigger: 'change',
-            },
-          ]"
-        >
-          <a-input-number
-            v-model:value="form.production_time"
-            style="width: 100%"
+        <a-form-item label="Production Time" name="production_time" :rules="[
+          {
+            required: true,
+            message: 'Required',
+            trigger: 'change',
+          },
+        ]">
+          <a-input-number v-model:value="form.production_time" style="width: 100%"
             :formatter="value => formatThousandSeparator(value, '.')"
-            :parser="value => parseThousandSeparator(value, '.')"
-            :disabled="true"
-            :min="0"
-          ></a-input-number>
+            :parser="value => parseThousandSeparator(value, '.')" :disabled="true" :min="0"></a-input-number>
         </a-form-item>
       </a-col>
       <a-col :span="8">
-        <a-form-item
-          label="Dandori Time"
-          name="dandori_time"
-          :rules="[
-            {
-              required: true,
-              message: 'Required',
-              trigger: 'change',
-            },
-          ]"
-        >
-          <a-input-number
-            v-model:value="form.dandori_time"
-            style="width: 100%"
+        <a-form-item label="Dandori Time" name="dandori_time" :rules="[
+          {
+            required: true,
+            message: 'Required',
+            trigger: 'change',
+          },
+        ]">
+          <a-input-number v-model:value="form.dandori_time" style="width: 100%"
             :formatter="value => formatThousandSeparator(value, '.')"
-            :parser="value => parseThousandSeparator(value, '.')"
-            :disabled="true"
-            :min="0"
-          ></a-input-number>
+            :parser="value => parseThousandSeparator(value, '.')" :disabled="false" :min="0"></a-input-number>
         </a-form-item>
       </a-col>
     </a-row>
@@ -276,26 +198,26 @@ watch(
 )
 
 watch(
-  () => [form.value.ok, form.value.reject_setting],
-  ([ok, reject_setting]) => {
-    if (ok > 0) {
-      const pcaData = pcaStore.findPcaById(form.value.id_pca)
-      // console.log(pcaData?.speed)
-      form.value.production_time = Number(
-        (ok / (pcaData.speed * pcaData.cavity)).toFixed(0),
-      )
+  () => [form.value.ok, form.value.ng, form.value.dandori_time, form.value.id_pca],
+  ([ok, ng, dandori_time, id_pca]) => {
+    const total = ok + ng
+    let productionTime = 0
+
+    if (id_pca) {
+      const pcaData = pcaStore.findPcaById(id_pca)
+
+      if (pcaData && Number.isFinite(pcaData.speed) && Number.isFinite(pcaData.cavity)) {
+        if (total > 0) {
+          productionTime = Number(((total) / (pcaData.speed * pcaData.cavity)).toFixed(0))
+        }
+      }
     }
-    if (reject_setting > 0) {
-      const pcaData = pcaStore.findPcaById(form.value.id_pca)
-      form.value.dandori_time = Number(
-        (reject_setting / pcaData.speed).toFixed(0),
-      )
-    }
-    // kalkulasi stop time dilakukan hardcode untuk 2 shift system
-    form.value.stop_time =
-      720 - form.value.production_time - form.value.dandori_time
-  },
+
+    form.value.production_time = productionTime
+    form.value.stop_time = 720 - productionTime - dandori_time
+  }
 )
+
 
 const handleAction = async mode => {
   if (mode === 'add') {
