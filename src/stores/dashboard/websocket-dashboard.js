@@ -33,6 +33,10 @@ export const useWsDashboardStore = defineStore('ws_dashboard', {
         this.reset()
         console.log('Websocket closed')
       }
+
+      this.socket.onerror = () => {
+        console.log('Websocket Error')
+      }
     },
 
     disconnected() {
@@ -57,6 +61,8 @@ export const useWsDashboardStore = defineStore('ws_dashboard', {
         punch_bending_adj_shot: 'Punch Bending Adj',
         die_bending_adj_shot: 'Die Bending Adj',
         menuchi_shot: 'Menuchi',
+        tsubushi_shot: 'Tsubushi',
+        jig_cutting_shot: 'Jig Cutting',
         machine_shot: 'Machine',
         kanagata_shot: 'Kanagata',
       }
