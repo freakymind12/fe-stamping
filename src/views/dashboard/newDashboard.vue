@@ -1,25 +1,12 @@
 <template>
   <a-row :gutter="[16, 16]">
-    <a-col
-      :xs="24"
-      :lg="24"
-      :sm="24"
-      :md="24"
-      :xl="12"
-      v-for="(machineData, key) in wsStore.data"
-      :key="key"
-    >
-      <a-card
-        size="small"
-        class="machine-card"
-        :hoverable="true"
-        :class="{
-          off: machineData.status.power_state === 0,
-          run: machineData.status.status_line === 0,
-          stop: machineData.status.status_line === 1,
-          setting: machineData.status.status_line === 2,
-        }"
-      >
+    <a-col :xs="24" :lg="24" :sm="24" :md="24" :xl="12" v-for="(machineData, key) in wsStore.data" :key="key">
+      <a-card size="small" class="machine-card" :hoverable="true" :class="{
+        off: machineData.status.power_state === 0,
+        run: machineData.status.status_line === 0,
+        stop: machineData.status.status_line === 1,
+        setting: machineData.status.status_line === 2,
+      }">
         <a-flex justify="space-between" wrap="wrap" align="center">
           <!-- Machine Name -->
           <span class="bold machine-name">{{
@@ -29,25 +16,17 @@
           <a-space :size="4" class="large">
             <span>Kanagata:</span>
             <a-space :size="0" wrap>
-              <a-tag
-                class="bold"
-                color="#18230F"
-                v-for="(kanagata, index) in pcaData(
-                  machineData.production.pca,
-                  'id_kanagata',
-                )"
-                :key="index"
-              >
+              <a-tag class="bold" color="#18230F" v-for="(kanagata, index) in pcaData(
+                machineData.production.pca,
+                'id_kanagata',
+              )" :key="index">
                 {{ kanagata }}
               </a-tag>
             </a-space>
           </a-space>
           <!-- Power State -->
           <a-space :size="5">
-            <SettingOutlined
-              :spin="true"
-              v-if="machineData.status.power_state === 1"
-            />
+            <SettingOutlined :spin="true" v-if="machineData.status.power_state === 1" />
             <LoadingOutlined v-else />
             <span class="bold large">{{
               machineData.status.power_state === 1
@@ -59,15 +38,10 @@
 
         <a-flex justify="space-between" wrap="wrap" align="center">
           <!-- Product Name -->
-          <a-space
-            direction="vertical"
-            :size="0"
-            v-for="(product, index) in pcaData(
-              machineData.production.pca,
-              'id_product',
-            )"
-            :key="index"
-          >
+          <a-space direction="vertical" :size="0" v-for="(product, index) in pcaData(
+            machineData.production.pca,
+            'id_product',
+          )" :key="index">
             <span class="large">Product [{{ index + 1 }}]</span>
             <span class="bold large">{{ product }}</span>
           </a-space>
@@ -79,54 +53,44 @@
             <span>Status Line</span>
             <span class="bold">{{
               statusLineStore.findStatusById(machineData.status.status_line)
-                .name
+                ?.name
             }}</span>
           </a-space>
           <!-- Stop Cause -->
-          <a-space
-            :size="0"
-            direction="vertical"
-            class="large"
-            v-if="machineData.status.status_line !== 0"
-          >
+          <a-space :size="0" direction="vertical" class="large" v-if="machineData.status.status_line !== 0">
             <span>Stop Cause</span>
             <span class="bold">
               {{
                 stopCauseStore.findStopCauseById(
                   machineData.status.stop_condition,
-                ).name
-              }}</span
-            >
+                )?.name
+              }}</span>
           </a-space>
           <!-- Speed Machine -->
           <a-space :size="0" direction="vertical" class="large" v-else>
             <span>Speed Machine</span>
-            <span class="bold"
-              >{{ machineData.production.speed.toLocaleString() }} SPM</span
-            >
+            <span class="bold">{{ machineData.production.speed.toLocaleString() }} SPM</span>
           </a-space>
           <!-- Output / Target -->
           <a-space :size="0" direction="vertical" class="large">
             <span>Output / Target</span>
-            <span class="bold"
-              >{{
-                getOutput(
-                  machineData.production.output,
-                  pcaData(machineData.production.pca, 'cavity'),
-                ).toLocaleString()
-              }}
+            <span class="bold">{{
+              getOutput(
+                machineData.production.output,
+                pcaData(machineData.production.pca, 'cavity'),
+              ).toLocaleString()
+            }}
               /
               {{
                 getTargetOutput(
                   machineData.production.stop_time,
                   machineData.production.dandori_time,
                   machineData.production.production_time,
-                  pcaData(machineData.production.pca, 'speed'),
+                  machineData.production.speed,
                   pcaData(machineData.production.pca, 'cavity'),
                 ).toLocaleString()
               }}
-              pins</span
-            >
+              pins</span>
           </a-space>
           <!-- Reject Setting -->
           <a-space :size="0" direction="vertical" class="large">
@@ -170,7 +134,7 @@
                     machineData.production.stop_time,
                     machineData.production.dandori_time,
                     machineData.production.production_time,
-                    pcaData(machineData.production.pca, 'speed'),
+                    machineData.production.speed,
                     pcaData(machineData.production.pca, 'cavity'),
                   ),
                 )
@@ -213,20 +177,10 @@
           <a-space :size="0" direction="vertical" class="large">
             <span>Alarms</span>
             <a-flex wrap="wrap" :gap="3">
-              <a-tag
-                v-for="(data, index) in getAlarm(machineData.alarm)"
-                :key="index"
-                class="bold"
-                color="#FF5501"
-              >
+              <a-tag v-for="(data, index) in getAlarm(machineData.alarm)" :key="index" class="bold" color="#FF5501">
                 {{ data }}
               </a-tag>
-              <a-tag
-                v-if="getAlarm(machineData.alarm).length === 0"
-                color="#18230F"
-                class="bold"
-                >No Alarms</a-tag
-              >
+              <a-tag v-if="getAlarm(machineData.alarm).length === 0" color="#18230F" class="bold">No Alarms</a-tag>
             </a-flex>
           </a-space>
         </a-flex>
