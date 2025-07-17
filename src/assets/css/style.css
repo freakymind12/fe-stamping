@@ -56,6 +56,10 @@
   background-color: #ffb200;
 }
 
+.standby {
+  background-color: #3D74B6;
+}
+
 .off {
   background-color: #5a5c69;
 }
@@ -78,4 +82,12 @@
 
 .x-large {
   font-size: x-large;
+}
+
+.mb-small {
+  margin-bottom: 0.5rem;
+}
+
+.mb-large{
+  margin-bottom: 1rem;
 }
