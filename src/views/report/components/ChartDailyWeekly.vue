@@ -47,20 +47,9 @@
     </a-col>
     <a-col :xs="24" :md="24" :sm="24" :lg="8">
       <BaseEchart
-        title="Kadoritsu"
+        title="Sugyou Kadoritsu"
         x-axis-name="Date"
         :series-data="[shift1.kadoritsu, shift2.kadoritsu]"
-        :series-color="['#51829B', '#F0A04B']"
-        :series-name="['Shift 1', 'Shift 2']"
-        :x-axis-data="date_range"
-        :show-label-series="true"
-      />
-    </a-col>
-    <a-col :xs="24" :md="24" :sm="24" :lg="8">
-      <BaseEchart
-        title="Bekidoritsu"
-        x-axis-name="Date"
-        :series-data="[shift1.bekidoritsu, shift2.bekidoritsu]"
         :series-color="['#51829B', '#F0A04B']"
         :series-name="['Shift 1', 'Shift 2']"
         :x-axis-data="date_range"
