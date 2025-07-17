@@ -3,7 +3,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: riankurniawan/fe-stamping:1.0.0
+    image: riankurniawan/fe-stamping:latest
     container_name: fe-stamping-new
     restart: always
     ports:

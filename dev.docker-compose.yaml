@@ -1,6 +1,6 @@
 services:
   fe-stamping-new:
-    image: node:20
+    image: node:20-slim
     container_name: fe-stamping-new
     restart: always
     working_dir: /app
