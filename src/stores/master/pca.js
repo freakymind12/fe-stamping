@@ -60,9 +60,11 @@ export const usePcaStore = defineStore('pca', {
         value: item.id_pca,
         label: `${item.id_machine} - ${item.name} - [${item.id_kanagata}]`,
       })),
-
     findPcaById: state => id_pca => {
       return state.pcas.find(item => item.id_pca === id_pca)
     },
+    findPcaByMachine: state => id_machine => {
+      return state.pcas.filter(item => item.id_machine === id_machine)
+    }
   },
 })
