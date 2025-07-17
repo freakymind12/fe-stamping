@@ -13,6 +13,9 @@
       <a-col :xs="24" :sm="24" :md="24" :lg="12" :xl="12">
         <MasterProduct />
       </a-col>
+      <a-col :xs="24" :sm="24" :md="24" :lg="12" :xl="12">
+        <MasterKanagataResetCode />
+      </a-col>
     </a-row>
   </div>
 </template>
@@ -22,4 +25,5 @@ import MasterKanagata from './MasterKanagata.vue'
 import MasterMachine from './MasterMachine.vue'
 import MasterProduct from './MasterProduct.vue'
 import MasterPca from './MasterPca.vue'
+import MasterKanagataResetCode from './MasterKanagataResetCode.vue'
 </script>
