@@ -128,6 +128,10 @@ const props = defineProps({
     type: String,
     default: 'horizontal',
   },
+  barWidth: {
+    type: String,
+    default: '100%'
+  }
 })
 
 const option = ref({
@@ -144,6 +148,10 @@ const option = ref({
       dataZoom: {
         yAxisIndex: 'none',
       },
+      dataView: { show: true, readOnly: false },
+      magicType: { show: true, type: ['line', 'bar'] },
+      restore: { show: true },
+      saveAsImage: { shot: true }
     },
   },
   tooltip: {
@@ -160,6 +168,7 @@ const option = ref({
   },
   legend: {
     data: props.seriesName,
+    bottom: '0%',
     right: '0%',
     orient: props.legendOrient,
   },
@@ -240,6 +249,11 @@ const updateChart = () => {
       type: props.seriesType[index], // Assuming the type is always 'line'
       lineStyle: {
         width: 5,
+      },
+      barWidth: props.barWidth,
+      itemStyle: {
+        borderWidth: 1,
+        borderColor: 'black'
       },
       label: {
         show: props.showLabelSeries,

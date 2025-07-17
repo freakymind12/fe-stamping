@@ -1,10 +1,5 @@
 <template>
-  <a-modal
-    v-model:open="localVisible"
-    :footer="null"
-    :width="width"
-    @cancel="handleCancel"
-  >
+  <a-modal v-model:open="localVisible" :footer="null" :width="width" :centered="centered" @cancel="handleCancel">
     <template #title>
       <span class="bold large">{{ modalTitle }}</span>
     </template>
@@ -28,6 +23,10 @@ const props = defineProps({
     type: Number,
     default: 520,
   },
+  centered: {
+    type: Boolean,
+    default: false
+  }
 })
 
 const emit = defineEmits(['close'])

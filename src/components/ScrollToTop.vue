@@ -1,7 +1,9 @@
 <template>
-  <div v-if="showButton" class="scroll-to-top" @click="scrollToTop">
-    <UpCircleOutlined />
-  </div>
+  <a-tooltip title="Scroll to top" v-if="showButton" placement="left">
+    <div class="scroll-to-top" @click="scrollToTop">
+      <UpCircleOutlined />
+    </div>
+  </a-tooltip>
 </template>
 
 <script setup>
@@ -42,7 +44,7 @@ onUnmounted(() => {
 <style scoped>
 .scroll-to-top {
   position: fixed;
-  bottom: 30px;
+  bottom: 8%;
   right: 30px;
   background-color: #5a5a5a;
   color: #fff;

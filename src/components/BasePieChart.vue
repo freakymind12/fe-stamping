@@ -97,7 +97,7 @@ const option = ref({
       label: {
         formatter: params => {
           const value = Number(params.value || 0).toLocaleString('id-ID')
-          const percent = params.percent?.toFixed(1) || '0.0'
+          const percent = params.percent?.toFixed(0) || '0'
 
           return `{value|${value} ${props.unit}} \n{percent|${percent} %}`
         },
@@ -140,12 +140,7 @@ const option = ref({
 const updateChart = () => {
   option.value.series[0].data = props.seriesData
   option.value.title.text = props.chartTitle
-  if (props.chartTitle === 'Kadoritsu') {
-    option.value.graphic[0].style.text =
-      'Average : ' + props.totalData + ' ' + props.unit
-  } else {
-    option.value.graphic[0].style.text = `Total : ${Number(props.totalData).toLocaleString('id-ID')} ${props.unit}`
-  }
+  option.value.graphic[0].style.text = `Total : ${Number(props.totalData).toLocaleString('id-ID')} ${props.unit}`
 }
 
 watchEffect(() => {
