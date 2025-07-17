@@ -91,5 +91,14 @@ export const useWsDashboardStore = defineStore('ws_dashboard', {
     },
   },
 
-  getters: {},
+  getters: {
+    getNonFeederMachine: (state) => {
+      return Object.entries(state.data)
+        .filter(([, data]) => data.other?.machine_feeder_mode === 0)
+        .reduce((acc, [key, data]) => {
+          acc[key] = data
+          return acc
+        }, {})
+    }
+  },
 })
