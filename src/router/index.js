@@ -10,16 +10,6 @@ const routes = [
     redirect: '/new-dashboard',
     meta: { breadcrumb: 'Home' },
     children: [
-      // {
-      //   path: '/dashboard',
-      //   name: 'Dashboard',
-      //   component: () => import('@/views/dashboard/LiveDashboard.vue'),
-      //   meta: {
-      //     requiresAuth: true,
-      //     roles: ['admin', 'staff', 'viewer'],
-      //     breadcrumb: 'Live Dashboard',
-      //   },
-      // },
       {
         path: '/new-dashboard',
         name: 'New Dashboard',
@@ -30,19 +20,19 @@ const routes = [
           breadcrumb: 'New Dashboard',
         },
       },
-      // {
-      //   path: '/dashboard/shot-monitor',
-      //   name: 'Kanagata Shot Monitor',
-      //   component: () => import('@/views/dashboard/LiveShoot.vue'),
-      //   meta: {
-      //     requiresAuth: true,
-      //     roles: ['admin', 'staff', 'viewer'],
-      //     breadcrumb: 'Live Parameter',
-      //   },
-      // },
+      {
+        path: '/machine-shot-monitor',
+        name: 'Shot Monitor',
+        component: () => import('@/views/dashboard/MachineShotMonitor.vue'),
+        meta: {
+          requiresAuth: true,
+          roles: ['admin', 'staff', 'viewer'],
+          breadcrumb: 'Machine Shot Monitor',
+        },
+      },
       {
         path: '/new-shot-monitor',
-        name: 'New Kanagata Shot Monitor',
+        name: 'New Live Parameter',
         component: () => import('@/views/dashboard/newLiveShoot.vue'),
         meta: {
           requiresAuth: true,

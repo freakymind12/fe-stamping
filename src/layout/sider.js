@@ -6,16 +6,6 @@ export default [
     path: '/dashboard',
     role: ['admin', 'staff', 'viewer'],
     children: [
-      // {
-      //   key: '1-1',
-      //   title: 'Production',
-      //   path: '/dashboard',
-      // },
-      // {
-      //   key: '1-2',
-      //   title: 'Kanagata Shot',
-      //   path: '/dashboard/shot-monitor',
-      // },
       {
         key: '1-1',
         title: 'Production Line',
@@ -25,6 +15,11 @@ export default [
         key: '1-2',
         title: 'Kanagata Shot',
         path: '/new-shot-monitor',
+      },
+      {
+        key: '1-3',
+        title: 'Shot Monitor',
+        path: '/machine-shot-monitor',
       },
     ],
   },
@@ -80,11 +75,6 @@ export default [
         key: '3-1',
         title: 'Production',
         path: '/master-production',
-      },
-      {
-        key: '3-3',
-        title: 'Maintenance',
-        path: '/under-construction',
       },
     ],
   },
