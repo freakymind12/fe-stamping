@@ -8,35 +8,20 @@
         {{ data.part.toUpperCase() }}
       </a-tag>
     </a-flex>
-    <a-table :dataSource="maintenanceStore.history" :columns="cols" size="small" bordered :pagination="false" :scroll="{ y: 300 }">
-      <template #footer>
-        <span class="bold">Total : </span> {{ maintenanceStore.history.length }} Reset History
-      </template>
-      </a-table>
+    <BaseEchart title="Reset History" x-axis-name="Date" :series-data="[chartSeries.shot]"
+      :series-color="['#51829B', '#F0A04B']" :series-name="['Shot']" :x-axis-data="chartSeries.date" :series-type="['line']"
+      :show-label-series="true" />
   </div>
 </template>
 
 <script setup>
+import BaseEchart from '@/components/BaseEchart.vue'
 import { useLogMaintenanceStore } from '@/stores/report/maintenance'
-import { ref, watch } from 'vue'
-import dayjs from 'dayjs'
+import { watch } from 'vue'
+import { storeToRefs } from 'pinia'
 
 const maintenanceStore = useLogMaintenanceStore()
-const cols = ref([
-  {
-    title: 'Part',
-    dataIndex: 'part',
-    key: 'part',
-    sorter: (a, b) => a.part.localeCompare(b.part)
-  },
-  {
-    title: 'Reset Time',
-    dataIndex: 'created_at',
-    key: 'created_at',
-    sorter: (a, b) => dayjs(a.created_at) - dayjs(b.created_at),
-    defaultSortOrder: 'descend',
-  }
-])
+const { chartSeries } = storeToRefs(maintenanceStore)
 
 const props = defineProps({
   data: {
@@ -46,14 +31,21 @@ const props = defineProps({
 })
 
 watch(
-  () => props.data,
-  async newVal => {
-    if (newVal && newVal.id_machine) {
-      await maintenanceStore.getHistoryMaintenance(newVal)
+  () => [props.data?.id_machine, props.data?.part],
+  async ([newIdMachine, newPart]) => {
+    if (newIdMachine && newPart) {
+      try {
+        await maintenanceStore.getHistoryMaintenance({
+          part: newPart?.toLowerCase().replace(/\s+/g, '_'),
+          id_machine: newIdMachine
+        });
+      } catch (err) {
+        console.error("Failed to get maintenance history:", err);
+      }
     }
   },
-  { immediate: true, deep: true },
-)
+  { immediate: true }
+);
 
 </script>
 
