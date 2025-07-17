@@ -77,5 +77,13 @@ export const useLogMaintenanceStore = defineStore('log-maintenance', {
         ? dayjs(maintenance.created_at).format('YYYY-MM-DD HH:mm:ss')
         : null
     },
+
+    chartSeries: (state) => {
+      const sorted = [...state.history].sort((a, b) => dayjs(a.created_at).isAfter(dayjs(b.created_at)) ? 1 : -1)
+      return {
+        shot: sorted.map(item => item.shot),
+        date: sorted.map(item => dayjs(item.created_at).format('YYYY-MM-DD HH:mm:ss'))
+      }
+    }
   },
 })
